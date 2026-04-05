@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Terms of Use for Speedometer Lite - Understand the terms for using our app.">
+  <meta name="theme-color" content="#0a0a0b">
+  <title>Terms of Use - Speedometer Lite</title>
+  
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml" href="favicon.svg">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --background: #0a0a0b;
+      --surface: #111113;
+      --text: #fafafa;
+      --text-muted: #9ca3af;
+      --accent: #f3f4f6;
+      --accent-muted: #374151;
+      --border: #27272a;
+      --gradient-start: #22d3ee;
+      --gradient-end: #c026d3;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--background);
+      color: var(--text);
+      line-height: 1.7;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 100;
+      padding: 1rem 2rem;
+      background: rgba(10, 10, 11, 0.85);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: var(--text);
+    }
+
+    .logo-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 8px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .logo-icon svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    .logo-text {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--text-muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: color 0.2s;
+    }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      color: var(--text);
+    }
+
+    main {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 8rem 2rem 4rem;
+    }
+
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .page-header h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .last-updated {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    .content-section {
+      margin-bottom: 3rem;
+    }
+
+    .content-section h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--text);
+    }
+
+    .content-section h3 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      margin-top: 1.5rem;
+      margin-bottom: 0.75rem;
+      color: var(--text);
+    }
+
+    .content-section p {
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+      font-size: 1rem;
+    }
+
+    .content-section ul {
+      color: var(--text-muted);
+      margin-left: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .content-section li {
+      margin-bottom: 0.5rem;
+    }
+
+    .highlight-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+
+    .highlight-box.blue {
+      border-color: rgba(34, 211, 238, 0.3);
+      background: rgba(34, 211, 238, 0.05);
+    }
+
+    .highlight-box.yellow {
+      border-color: rgba(250, 204, 21, 0.3);
+      background: rgba(250, 204, 21, 0.05);
+    }
+
+    .highlight-box p {
+      margin-bottom: 0;
+    }
+
+    .highlight-box strong {
+      color: var(--text);
+    }
+
+    footer {
+      padding: 2rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--text-muted);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      color: var(--text);
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      main {
+        padding: 6rem 1.5rem 3rem;
+      }
+
+      .page-header h1 {
+        font-size: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <nav>
+    <div class="nav-container">
+      <a href="index.html" class="logo">
+        <div class="logo-icon">
+          <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="nav-bg" cx="50%" cy="100%" r="100%"><stop offset="0%" stop-color="#1e1e24"/><stop offset="100%" stop-color="#050505"/></radialGradient>
+              <linearGradient id="nav-grad" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="50%" stop-color="#10b981"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
+            </defs>
+            <rect width="512" height="512" fill="url(#nav-bg)" rx="115"/>
+            <path d="M 90 390 A 210 210 0 1 1 422 390" fill="none" stroke="#111" stroke-width="48" stroke-linecap="round"/>
+            <path d="M 90 390 A 210 210 0 0 1 390 120" fill="none" stroke="url(#nav-grad)" stroke-width="48" stroke-linecap="round"/>
+            <polygon points="236,256 276,256 256,60" fill="#ffffff" transform="rotate(55 256 256)"/>
+            <circle cx="256" cy="256" r="32" fill="#1e1e24" stroke="#333" stroke-width="4"/>
+            <circle cx="256" cy="256" r="10" fill="#ef4444"/>
+          </svg>
+        </div>
+        <span class="logo-text">Speedometer Lite</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="index.html#features">Features</a></li>
+        <li><a href="privacy.html">Privacy</a></li>
+        <li><a href="terms.html" class="active">Terms</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main>
+    <header class="page-header">
+      <h1>Terms of Use</h1>
+      <p class="last-updated">Last updated: April 2026</p>
+    </header>
+
+    <section class="content-section">
+      <h2>Agreement</h2>
+      <p>By downloading, installing, or using Speedometer Lite ("the app"), you agree to these terms. If you don't agree with any part of these terms, please don't use the app.</p>
+      
+      <div class="highlight-box blue">
+        <p><strong>Plain language:</strong> These terms cover how you can use the app, what it's designed for, and important safety information. We've tried to keep it straightforward and honest.</p>
+      </div>
+    </section>
+
+    <section class="content-section">
+      <h2>What the App Does</h2>
+      <p>Speedometer Lite is a GPS-based speedometer application that:</p>
+      <ul>
+        <li>Displays your current speed based on GPS data from your device</li>
+        <li>Tracks distance traveled during trips</li>
+        <li>Records trip history including routes, distances, and speed data</li>
+        <li>Shows your position on a map</li>
+        <li>Provides optional telemetry displays like altitude and heading</li>
+        <li>Offers customizable themes and display preferences</li>
+      </ul>
+      <p>The app is designed for informational and recreational purposes.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Important Safety Information</h2>
+      
+      <div class="highlight-box yellow">
+        <p><strong>Safety first:</strong> GPS speed readings can vary due to signal quality, environmental conditions, and device limitations. Do not rely solely on this app for critical speed or navigation decisions.</p>
+      </div>
+
+      <h3>GPS Accuracy</h3>
+      <p>The speed displayed in the app is calculated from GPS signals received by your device. GPS accuracy can be affected by:</p>
+      <ul>
+        <li>Signal obstructions (tunnels, tall buildings, dense tree cover)</li>
+        <li>Atmospheric conditions</li>
+        <li>Your device's GPS hardware quality</li>
+        <li>The time since GPS was last used (initial lock time)</li>
+      </ul>
+      <p>The app displays a GPS signal indicator to help you understand current signal quality, but this is an estimate and not a guarantee of accuracy.</p>
+
+      <h3>Safe Usage</h3>
+      <p>When using the app while driving or operating any vehicle:</p>
+      <ul>
+        <li>Always refer to your vehicle's speedometer as the primary speed reference</li>
+        <li>Do not operate the app in ways that distract you from driving</li>
+        <li>Set up your preferred settings before starting your journey</li>
+        <li>Follow all traffic laws and regulations in your jurisdiction</li>
+        <li>Pull over safely if you need to interact with the app</li>
+      </ul>
+      <p>The app is not a replacement for your vehicle's speedometer or any certified speed measurement device.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Acceptable Use</h2>
+      <p>You may use Speedometer Lite for personal, non-commercial purposes. You agree not to:</p>
+      <ul>
+        <li>Use the app in any way that could endanger yourself or others</li>
+        <li>Reverse engineer, decompile, or attempt to extract the source code</li>
+        <li>Use the app to violate any laws or regulations</li>
+        <li>Redistribute, sell, or create derivative works from the app</li>
+        <li>Remove or alter any copyright notices or branding</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Intellectual Property</h2>
+      <p>The app, including its design, code, graphics, themes, and icons, is protected by copyright and intellectual property laws. All rights not explicitly granted in these terms are reserved.</p>
+      <p>The "Speedometer Lite" name and logo are the property of the app developer.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>App Updates</h2>
+      <p>We may release updates to the app to add features, fix bugs, or improve performance. Updates may be distributed through the App Store and may occur automatically depending on your device settings.</p>
+      <p>We recommend keeping the app updated to ensure you have the latest features and improvements. Older versions of the app may not function correctly or may lack certain features.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Third-Party Services</h2>
+      <p>The app uses Apple's MapKit to display maps. Your use of maps within the app is subject to Apple's terms of service. We don't control Apple's map services and aren't responsible for their availability or accuracy.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Limitation of Liability</h2>
+      <p>The app is provided "as is" without warranties of any kind, either express or implied. We do not guarantee that:</p>
+      <ul>
+        <li>The app will be error-free or uninterrupted</li>
+        <li>Speed readings will be accurate in all conditions</li>
+        <li>The app will meet your specific requirements</li>
+      </ul>
+      <p>To the maximum extent permitted by law, we are not liable for any damages arising from your use of the app, including but not limited to:</p>
+      <ul>
+        <li>Reliance on speed readings displayed by the app</li>
+        <li>Loss of data or trip recordings</li>
+        <li>Any indirect, incidental, or consequential damages</li>
+      </ul>
+    </section>
+
+    <section class="content-section">
+      <h2>Permissions</h2>
+      <p>The app requests certain device permissions to function:</p>
+      <ul>
+        <li><strong>Location (When In Use):</strong> Required to calculate and display your speed</li>
+        <li><strong>Location (Always/Background):</strong> Optional, enables trip recording with the screen off</li>
+        <li><strong>Motion Sensors:</strong> Optional, powers G-force and artificial horizon displays</li>
+      </ul>
+      <p>You can modify these permissions at any time through your device's Settings app. Revoking location permission will prevent the app from displaying speed data.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Termination</h2>
+      <p>You can stop using the app at any time by uninstalling it from your device. This will also delete all locally stored data.</p>
+      <p>We reserve the right to discontinue the app or certain features at any time, though we'll try to provide notice when possible.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Changes to Terms</h2>
+      <p>We may update these terms from time to time. When we make changes, we'll update the "Last updated" date at the top of this page. For significant changes, we may also notify you through the App Store update notes.</p>
+      <p>Continued use of the app after changes to the terms constitutes acceptance of those changes.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Governing Law</h2>
+      <p>These terms are governed by and construed in accordance with applicable laws. Any disputes will be resolved in accordance with standard dispute resolution processes.</p>
+    </section>
+
+    <section class="content-section">
+      <h2>Contact</h2>
+      <p>Questions or concerns about these terms? Reach out to us:</p>
+      <p><a href="mailto:support@speedometer.app" style="color: var(--gradient-start);">support@speedometer.app</a></p>
+    </section>
+  </main>
+
+  <footer>
+    <p><a href="index.html">Speedometer Lite</a> · <a href="privacy.html">Privacy</a> · <a href="terms.html">Terms</a></p>
+    <p style="margin-top: 0.5rem;">&copy; 2026 Speedometer Lite</p>
+  </footer>
+</body>
+</html>
