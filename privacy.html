@@ -316,7 +316,7 @@
 
     <section class="content-section">
       <h2>Overview</h2>
-      <p>Speedometer Lite is designed with privacy as a core principle. Your trip data, GPS routes, and personal preferences stay on your device. The only data that leaves your device is anonymous purchase information needed to manage Pro subscriptions, and anonymous, aggregated product-usage events that help us improve the app.</p>
+      <p>Speedometer Lite is designed with privacy as a core principle. Your trip data, GPS routes, and personal preferences stay on your device. The data that leaves your device is: anonymous purchase information needed to manage Pro subscriptions; anonymous, aggregated product-usage events that help us improve the app; and — only if you enable the optional Pro speed-limit feature — your approximate location, sent to look up the posted limit for the road you're on.</p>
 
       <div class="highlight-box green">
         <p><strong>The short version:</strong> Your trip GPS routes and history never leave your device. Pro purchases are processed anonymously through Apple's In-App Purchase system and managed via RevenueCat. We also collect anonymous, aggregated usage events (such as which screens you visit and whether a purchase completed) via PostHog to improve the app. PostHog automatically derives an approximate location (country, region, city, and approximate coordinates) from the IP address used to send each event — this is not your GPS position, and your actual GPS trip routes are never sent. No name, email, or account is ever attached.</p>
@@ -325,7 +325,7 @@
 
     <section class="content-section">
       <h2>Data We Process</h2>
-      <p>The following data is processed by the app. Most of it stays on your device. Only the items marked "RevenueCat" or "PostHog" leave your device, and only for the purposes described below.</p>
+      <p>The following data is processed by the app. Most of it stays on your device. Only the items whose storage column names an external provider — Apple, RevenueCat, PostHog, or (for the optional Pro speed-limit feature) OpenStreetMap/TomTom — leave your device, and only for the purposes described below.</p>
 
       <table class="data-table">
         <thead>
@@ -340,6 +340,11 @@
             <td><strong>Location (GPS)</strong></td>
             <td>Calculate your current speed, track distance, and display your position on the map</td>
             <td><span class="status-badge local">Device only</span></td>
+          </tr>
+          <tr>
+            <td><strong>Location for speed limits (Pro)</strong></td>
+            <td>When you enable the live speed-limit feature, your approximate location is sent to retrieve the posted speed limit (and road name) for your current road. Used only to provide this feature; not linked to your identity and not used to track you.</td>
+            <td><span class="status-badge none">OpenStreetMap / TomTom</span></td>
           </tr>
           <tr>
             <td><strong>Motion sensors</strong></td>
@@ -427,9 +432,13 @@
       <ul>
         <li>GPS location data is processed in real-time on your device to calculate speed.</li>
         <li>If you record a trip, the route coordinates are saved locally on your device.</li>
-        <li>Your GPS coordinates and trip routes are never sent to any external server, including our analytics provider.</li>
+        <li>Your recorded trip routes are never sent to any external server, including our analytics provider.</li>
+        <li>If you enable the optional Pro speed-limit feature, your approximate current location (not your trip routes) is sent to look up the posted limit for your road — see “Live Speed Limits” below.</li>
         <li>You can delete any recorded trip at any time from within the app.</li>
       </ul>
+
+      <h3>Live Speed Limits (Pro, Optional)</h3>
+      <p>If you turn on the optional Pro speed-limit feature, the app sends your approximate location to our service (hosted on Supabase) to retrieve the posted speed limit and road name for the road you're on. The lookup uses map data from OpenStreetMap and TomTom. Your location is used only to return the limit for that location, is not stored against your identity, and is never used to build a profile or track you across apps. The feature is off by default — you can turn it off at any time, after which no location is sent for this purpose.</p>
 
       <h3>Approximate Location from IP (Separate from GPS)</h3>
       <p>Independent of GPS, when the app sends an analytics event to PostHog (described below), PostHog automatically derives an approximate location from the originating IP address. This includes a country, region, city, postal area, timezone, and approximate latitude/longitude. These coordinates reflect roughly where your internet connection appears to originate — not your actual GPS position — and are typically accurate only to city level. This is the only location-related data that leaves your device, and only for analytics purposes.</p>
