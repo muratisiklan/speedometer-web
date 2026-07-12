@@ -311,7 +311,7 @@
   <main>
     <header class="page-header">
       <h1>Privacy Policy</h1>
-      <p class="last-updated">Last updated: May 18, 2026</p>
+      <p class="last-updated">Last updated: July 12, 2026</p>
     </header>
 
     <section class="content-section">
@@ -441,7 +441,7 @@
       <p>If you turn on the optional Pro speed-limit feature, the app sends your approximate location to our service (hosted on Supabase) to retrieve the posted speed limit and road name for the road you're on. The lookup uses map data from OpenStreetMap and TomTom. Your location is used only to return the limit for that location, is not stored against your identity, and is never used to build a profile or track you across apps. The feature is off by default — you can turn it off at any time, after which no location is sent for this purpose.</p>
 
       <h3>Approximate Location from IP (Separate from GPS)</h3>
-      <p>Independent of GPS, when the app sends an analytics event to PostHog (described below), PostHog automatically derives an approximate location from the originating IP address. This includes a country, region, city, postal area, timezone, and approximate latitude/longitude. These coordinates reflect roughly where your internet connection appears to originate — not your actual GPS position — and are typically accurate only to city level. This is the only location-related data that leaves your device, and only for analytics purposes.</p>
+      <p>Independent of GPS, when the app sends an analytics event to PostHog (described below), PostHog automatically derives an approximate location from the originating IP address. This includes a country, region, city, postal area, timezone, and approximate latitude/longitude. These coordinates reflect roughly where your internet connection appears to originate — not your actual GPS position — and are typically accurate only to city level. Apart from the optional Pro speed-limit feature described above (which sends your approximate GPS location to look up posted limits), this IP-derived approximate location is the only location-related data that leaves your device, and it is used only for analytics.</p>
     </section>
 
     <section class="content-section">
@@ -524,6 +524,15 @@
 
       <h3>PostHog — Product Analytics</h3>
       <p>PostHog receives anonymous usage events from the app, as described in the Product Analytics section above. PostHog does not receive your name, email, GPS coordinates from your trips, or trip routes. PostHog does receive your IP address with each event and uses it to derive an approximate location (country, region, city, and approximate coordinates), which is stored alongside the event. PostHog data is hosted in the European Union. See <a href="https://posthog.com/privacy" style="color: var(--gradient-start);">PostHog's Privacy Policy</a>.</p>
+
+      <h3>Supabase — Speed-Limit Lookup Service (Pro)</h3>
+      <p>The optional Pro speed-limit feature calls a service we host on Supabase. When the feature is enabled, the app sends your approximate location to this service, which retrieves the posted speed limit and road name for that location. Supabase processes the request on our behalf and the lookup is not linked to your identity. If the feature is off, no such request is made. See <a href="https://supabase.com/privacy" style="color: var(--gradient-start);">Supabase's Privacy Policy</a>.</p>
+
+      <h3>OpenStreetMap — Map Data (Pro)</h3>
+      <p>Our speed-limit service queries OpenStreetMap for speed-limit and road data near your location. Speed-limit data is © OpenStreetMap contributors, available under the Open Database License (ODbL). See the <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" style="color: var(--gradient-start);">OpenStreetMap Foundation Privacy Policy</a>.</p>
+
+      <h3>TomTom — Speed-Limit Data (Pro)</h3>
+      <p>Where OpenStreetMap has no data, our speed-limit service queries TomTom for the posted limit. See <a href="https://www.tomtom.com/privacy/" style="color: var(--gradient-start);">TomTom's Privacy Policy</a>.</p>
     </section>
 
     <section class="content-section">
