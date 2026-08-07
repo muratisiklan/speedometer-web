@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Lifetime Pro — Speedometer Lite</title>
+  <meta name="description" content="Unlock Lifetime Pro for Speedometer Lite — free or $2.99, while the codes last.">
+  <!-- Not indexed: the offers expire, and an expired promo page competing with
+       the homepage in search helps nobody. Kept out of sitemap.xml too. -->
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#020617">
+
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Speedometer Lite">
+  <meta property="og:title" content="Speedometer Lite — Lifetime Pro">
+  <meta property="og:description" content="Every Pro feature, unlocked permanently. Free or $2.99 while the codes last. Not a subscription.">
+  <meta property="og:url" content="https://speedometerlite.app/pro">
+  <meta property="og:image" content="https://speedometerlite.app/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg">
+  <link rel="apple-touch-icon" href="../apple-touch-icon.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- The app's own faces: Space Grotesk for voice, Space Mono for every
+       readout. Matching the product beats matching the marketing site here. -->
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      /* Straight from src/theme/brand.ts — this page is the app talking, not
+         the marketing site. */
+      --void: #020617;
+      --panel: #0f172a;
+      --cyan: #22d3ee;
+      --magenta: #c026d3;
+      /* The app uses this green to mean "free / go" on the paywall's trial
+         line. It carries the same job here. */
+      --emerald: #10b981;
+      --ink: #fafafa;
+
+      --ink-70: rgba(250, 250, 250, 0.70);
+      /* The quiet step for body copy. White at 45% measures ~4.3:1 on this
+         ground — just under AA — so anything anyone has to read sits at 62%. */
+      --ink-62: rgba(250, 250, 250, 0.62);
+      --ink-45: rgba(250, 250, 250, 0.45);
+      --ink-28: rgba(250, 250, 250, 0.28);
+      --hairline: rgba(250, 250, 250, 0.10);
+
+      --display: 'Space Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+      --readout: 'Space Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+    }
+
+    html { -webkit-text-size-adjust: 100%; }
+
+    body {
+      font-family: var(--display);
+      background: var(--void);
+      color: var(--ink);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      /* Two soft glows echoing the paywall's own atmosphere: cyan lifting the
+         top, magenta warming the base. Static — nothing on this page pulses. */
+      background-image:
+        radial-gradient(60rem 40rem at 50% -10%, rgba(34, 211, 238, 0.10), transparent 70%),
+        radial-gradient(50rem 35rem at 50% 108%, rgba(192, 38, 211, 0.08), transparent 70%);
+      /* Deliberately not background-attachment: fixed — iOS Safari mishandles
+         it, and this page is read on an iPhone more than anywhere else. */
+      background-repeat: no-repeat;
+    }
+
+    a { color: inherit; }
+
+    :focus-visible {
+      outline: 2px solid var(--cyan);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    /* ---------------------------------------------------------------- nav */
+    .site-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.9rem 1.5rem;
+      background: rgba(2, 6, 23, 0.82);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .site-nav > div {
+      max-width: 60rem;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .brand { display: flex; align-items: center; gap: 0.7rem; text-decoration: none; }
+    .brand svg { width: 34px; height: 34px; border-radius: 8px; display: block; flex-shrink: 0; }
+    .brand span { font-weight: 700; font-size: 1rem; letter-spacing: -0.01em; }
+
+    .nav-links { display: flex; gap: 1.5rem; list-style: none; }
+    .nav-links a {
+      font-family: var(--readout);
+      font-size: 0.72rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink-62);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* --------------------------------------------------------------- page */
+    .page { max-width: 60rem; margin: 0 auto; padding: 4.5rem 1.5rem 5rem; }
+
+    .masthead { text-align: center; margin-bottom: 2rem; }
+
+    .eyebrow {
+      font-family: var(--readout);
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      /* Letter-spacing adds a trailing space after the final glyph, which
+         drags centred text off-centre. Pay it back as an indent. */
+      text-indent: 0.22em;
+      text-transform: uppercase;
+      color: var(--cyan);
+      margin-bottom: 1.1rem;
+    }
+
+    .masthead h1 {
+      font-size: clamp(2.1rem, 8vw, 3.4rem);
+      font-weight: 700;
+      /* Positive, like the app's paywall headline — uppercase reads cramped
+         under the negative tracking a lowercase display line would want. */
+      letter-spacing: 0.03em;
+      text-indent: 0.03em;
+      line-height: 1.02;
+      text-transform: uppercase;
+    }
+
+    .masthead h1 em {
+      font-style: normal;
+      color: var(--cyan);
+      text-shadow: 0 0 28px rgba(34, 211, 238, 0.45);
+    }
+
+    .masthead p {
+      margin: 1.1rem auto 0;
+      max-width: 34rem;
+      color: var(--ink-62);
+      font-size: 1rem;
+    }
+
+    /* -------------------------------------------------------------- limits */
+    /* Both offers share one deadline, so the scarcity is stated once, above
+       the cards, rather than twice below them. No code count: the exact figure
+       reads as plenty and dates the page the moment the free pool empties —
+       the precise limits stay in the terms. Magenta because on this page
+       magenta is the redline, the colour that means "this far and no
+       further". */
+    .limits {
+      border: 1px solid rgba(192, 38, 211, 0.35);
+      background: linear-gradient(180deg, rgba(192, 38, 211, 0.10), rgba(192, 38, 211, 0.03));
+      border-radius: 18px;
+      padding: 1.35rem 1.5rem;
+      margin-bottom: 3rem;
+      text-align: center;
+    }
+
+    .limits-tag {
+      font-family: var(--readout);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.22em;
+      text-indent: 0.22em;
+      text-transform: uppercase;
+      color: var(--magenta);
+    }
+
+    .limits-note {
+      margin: 0.6rem auto 0;
+      max-width: 26rem;
+      font-size: 0.88rem;
+      color: var(--ink-62);
+    }
+
+    .limits-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      margin-top: 1.1rem;
+    }
+
+    .limits-grid > div + div { border-left: 1px solid rgba(192, 38, 211, 0.25); }
+
+    /* Words in the display face, data in the readout face — the same split the
+       rest of the page runs on. */
+    .limits-grid b {
+      display: block;
+      font-weight: 700;
+      font-size: clamp(1.15rem, 4.4vw, 1.5rem);
+      letter-spacing: -0.015em;
+      line-height: 1.15;
+    }
+
+    .limits-grid .is-data {
+      font-family: var(--readout);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0;
+    }
+
+    .limits-grid span {
+      display: block;
+      margin-top: 0.4rem;
+      font-family: var(--readout);
+      font-size: 0.63rem;
+      letter-spacing: 0.14em;
+      text-indent: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-62);
+    }
+
+    /* ------------------------------------------------------------ unlocks */
+    .unlocks-body {
+      display: grid;
+      grid-template-columns: minmax(0, 15rem) minmax(0, 1fr);
+      gap: 2.5rem;
+      align-items: center;
+    }
+
+    .unlocks-shot {
+      border: 1px solid var(--hairline);
+      border-radius: 22px;
+      overflow: hidden;
+      background: var(--panel);
+      box-shadow: 0 30px 60px -30px rgba(2, 6, 23, 0.9);
+    }
+
+    .unlocks-shot img { display: block; width: 100%; height: auto; }
+
+    .unlocks-list { list-style: none; display: grid; gap: 0; }
+
+    .unlocks-list li {
+      position: relative;
+      padding: 0.85rem 0 0.85rem 1.4rem;
+      border-top: 1px solid var(--hairline);
+    }
+
+    .unlocks-list li:first-child { border-top: 0; padding-top: 0; }
+
+    /* The same tick that graduates the dials, at list scale — it ties the
+       spec sheet to the instrument rather than decorating it. */
+    .unlocks-list li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 1.35rem;
+      width: 2px;
+      height: 0.65rem;
+      border-radius: 1px;
+      background: var(--cyan);
+    }
+
+    .unlocks-list li:first-child::before { top: 0.5rem; }
+
+    .unlocks-list b {
+      display: block;
+      font-weight: 700;
+      font-size: 0.98rem;
+      letter-spacing: -0.01em;
+    }
+
+    .unlocks-list span {
+      display: block;
+      margin-top: 0.15rem;
+      color: var(--ink-62);
+      font-size: 0.88rem;
+    }
+
+    /* ------------------------------------------------------------- offers */
+    .offers {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 1.25rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .offer {
+      --key: var(--cyan);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      background: linear-gradient(180deg, var(--panel), rgba(15, 23, 42, 0.45));
+      border: 1px solid var(--hairline);
+      border-radius: 20px;
+      padding: 1.5rem 1.35rem 1.35rem;
+      overflow: hidden;
+    }
+
+    /* A hairline of the offer's own colour along the top edge — the only place
+       each card announces which one it is before you read a word. */
+    .offer::before {
+      content: '';
+      position: absolute;
+      inset: 0 0 auto 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--key), transparent);
+    }
+
+    .offer--free { --key: var(--emerald); }
+
+    .offer-tag {
+      font-family: var(--readout);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-indent: 0.2em;
+      text-transform: uppercase;
+      color: var(--key);
+      text-align: center;
+      margin-bottom: 0.4rem;
+    }
+
+    /* --------------------------------------------------------------- dial */
+    /* The signature: each price sits where it falls on a $0–$24.99 sweep, with
+       the needle drawn to the same proportions as the one in the app's icon.
+       Both needles rest far from the redline, which is the whole pitch. */
+    .dial { display: block; width: 100%; max-width: 15rem; margin: 0 auto; }
+
+    .dial-track { fill: none; stroke: rgba(250, 250, 250, 0.09); stroke-width: 7; stroke-linecap: round; }
+    .dial-live { fill: none; stroke: var(--key); stroke-width: 7; stroke-linecap: round; opacity: 0.9; }
+    .dial-redline { fill: none; stroke: var(--magenta); stroke-width: 7; stroke-linecap: round; }
+    .dial-tick { stroke: rgba(250, 250, 250, 0.22); stroke-width: 2; stroke-linecap: round; }
+    .dial-scale { font-family: var(--readout); font-size: 11px; fill: var(--ink-45); }
+
+    .needle-blade { fill: var(--key); }
+    .needle-tail { fill: var(--key); opacity: 0.55; }
+    .needle-hub { fill: none; stroke: var(--key); stroke-width: 3.5; }
+
+    /* Ignition sweep: the needle starts pinned at the redline and settles on
+       its price, the way a real cluster self-tests when the engine turns over.
+       One orchestrated moment; nothing else on the page moves. */
+    .needle {
+      transform-box: view-box;
+      transform-origin: 100px 100px;
+      transform: rotate(var(--rest));
+      animation: sweep 1s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+    }
+
+    @keyframes sweep {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(var(--rest)); }
+    }
+
+    .price {
+      font-family: var(--readout);
+      font-weight: 700;
+      font-size: clamp(2.4rem, 9vw, 3.1rem);
+      letter-spacing: 0;
+      line-height: 1;
+      text-align: center;
+      font-variant-numeric: tabular-nums;
+      margin-top: -0.4rem;
+    }
+
+    .price-was {
+      font-family: var(--readout);
+      font-size: 0.78rem;
+      color: var(--ink-62);
+      text-align: center;
+      margin-top: 0.5rem;
+      margin-bottom: 1.75rem;
+    }
+
+    .price-was s { text-decoration-color: var(--magenta); text-decoration-thickness: 1.5px; }
+
+    /* ------------------------------------------------------------- action */
+    .redeem {
+      display: block;
+      margin-top: auto;
+      padding: 1rem 1rem;
+      border-radius: 14px;
+      background: var(--key);
+      color: var(--void);
+      font-family: var(--display);
+      font-weight: 700;
+      font-size: 1rem;
+      letter-spacing: -0.01em;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+      box-shadow: 0 8px 30px -12px var(--key);
+    }
+
+    .redeem:hover { transform: translateY(-1px); box-shadow: 0 14px 34px -12px var(--key); }
+    .redeem:active { transform: translateY(0); }
+
+    /* Spent offer: colour drains, needle pins at the redline, code is gone. */
+    .offer[data-spent='true'] { --key: var(--ink-28); }
+    .offer[data-spent='true'] .needle { animation: none; transform: rotate(0deg); }
+    .offer[data-spent='true'] .price { color: var(--ink-28); text-decoration: line-through; text-decoration-color: var(--magenta); }
+    .offer[data-spent='true'] .redeem { background: transparent; color: var(--ink-45); border: 1px solid var(--hairline); box-shadow: none; pointer-events: none; }
+
+    /* -------------------------------------------------------------- prose */
+    .block { margin-bottom: 3rem; }
+
+    .block h2 {
+      font-family: var(--readout);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-62);
+      padding-bottom: 0.9rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--hairline);
+    }
+
+    .steps { list-style: none; counter-reset: step; display: grid; gap: 1.1rem; }
+
+    /* The marker is positioned, not a grid column. As a grid container each
+       element child — every <strong> in the sentence — would become its own
+       grid item, scattering one sentence across several cells. */
+    .steps li {
+      counter-increment: step;
+      position: relative;
+      padding-left: 2.9rem;
+      color: var(--ink-70);
+      font-size: 0.95rem;
+    }
+
+    /* Numbered because redemption genuinely is a sequence — do these out of
+       order and it doesn't work. */
+    .steps li::before {
+      content: counter(step, decimal-leading-zero);
+      position: absolute;
+      left: 0;
+      top: 0.3rem;
+      font-family: var(--readout);
+      font-size: 0.75rem;
+      line-height: 1;
+      color: var(--cyan);
+    }
+
+    .steps strong { color: var(--ink); font-weight: 700; }
+
+    .aside {
+      margin-top: 1.4rem;
+      padding-left: 2.9rem;
+      color: var(--ink-62);
+      font-size: 0.85rem;
+    }
+
+    .terms { list-style: none; display: grid; gap: 0.9rem; }
+
+    .terms li {
+      color: var(--ink-62);
+      font-size: 0.87rem;
+      line-height: 1.65;
+      padding-left: 1.1rem;
+      position: relative;
+    }
+
+    .terms li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0.62rem;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--ink-28);
+    }
+
+    .terms strong { color: var(--ink-70); font-weight: 700; }
+    .terms a { color: var(--cyan); }
+
+    .site-foot {
+      border-top: 1px solid var(--hairline);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-family: var(--readout);
+      font-size: 0.7rem;
+      letter-spacing: 0.08em;
+      color: var(--ink-45);
+    }
+
+    .site-foot a { color: var(--ink-62); text-decoration: none; }
+    .site-foot a:hover { color: var(--ink); }
+
+    @media (max-width: 34rem) {
+      .limits-grid { grid-template-columns: minmax(0, 1fr); }
+      .limits-grid > div + div {
+        border-left: 0;
+        border-top: 1px solid rgba(192, 38, 211, 0.25);
+        margin-top: 1.1rem;
+        padding-top: 1.1rem;
+      }
+    }
+
+    @media (max-width: 46rem) {
+      .offers { grid-template-columns: minmax(0, 1fr); gap: 1rem; }
+      .unlocks-body { grid-template-columns: minmax(0, 1fr); gap: 1.75rem; justify-items: center; }
+      .unlocks-shot { max-width: 15rem; }
+      .nav-links { gap: 1rem; }
+      .page { padding: 3rem 1.15rem 4rem; }
+      .aside { padding-left: 0; }
+    }
+
+    @media (max-width: 24rem) {
+      .nav-links { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .needle { animation: none; }
+      .redeem { transition: none; }
+      .redeem:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="site-nav">
+    <div>
+      <a class="brand" href="../index.html">
+        <svg viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <defs>
+            <radialGradient id="nb" cx="50%" cy="100%" r="100%"><stop offset="0%" stop-color="#1e1e24"/><stop offset="100%" stop-color="#050505"/></radialGradient>
+            <linearGradient id="ng" x1="0%" y1="100%" x2="100%" y2="0%"><stop offset="0%" stop-color="#3b82f6"/><stop offset="50%" stop-color="#10b981"/><stop offset="100%" stop-color="#ef4444"/></linearGradient>
+          </defs>
+          <rect width="512" height="512" fill="url(#nb)" rx="115"/>
+          <path d="M 90 390 A 210 210 0 1 1 422 390" fill="none" stroke="#111" stroke-width="48" stroke-linecap="round"/>
+          <path d="M 90 390 A 210 210 0 0 1 390 120" fill="none" stroke="url(#ng)" stroke-width="48" stroke-linecap="round"/>
+          <polygon points="236,256 276,256 256,60" fill="#ffffff" transform="rotate(55 256 256)"/>
+          <circle cx="256" cy="256" r="32" fill="#1e1e24" stroke="#333" stroke-width="4"/>
+          <circle cx="256" cy="256" r="10" fill="#ef4444"/>
+        </svg>
+        <span>Speedometer Lite</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="../index.html#features">Features</a></li>
+        <li><a href="../privacy.html">Privacy</a></li>
+        <li><a href="../terms.html">Terms</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <main class="page">
+    <header class="masthead">
+      <p class="eyebrow">Reddit offer</p>
+      <h1>Unlock <em>Lifetime Pro</em></h1>
+      <p>Every Pro feature, yours permanently. One purchase — not a subscription, and nothing renews.</p>
+    </header>
+
+    <aside class="limits">
+      <p class="limits-tag">Limited run</p>
+      <div class="limits-grid">
+        <div><b>Limited codes</b><span>First come, first served</span></div>
+        <div><b class="is-data">29 Sep 2026</b><span>Last day to redeem</span></div>
+      </div>
+      <p class="limits-note">The codes expire at 12:00 a.m. Pacific on 30 September 2026, so 29 September is the last full day. Whichever runs out first ends the offer &mdash; once the codes are gone they are gone.</p>
+    </aside>
+
+    <section class="offers" aria-label="Available offers">
+
+      <!-- ============================ FREE ============================ -->
+      <article class="offer offer--free" id="offer-free" data-spent="false">
+        <p class="offer-tag">Free</p>
+
+        <svg class="dial" viewBox="0 0 200 128" role="img" aria-label="Price dial: zero dollars on a scale ending at 24.99">
+          <path class="dial-track" d="M 22 100 A 78 78 0 0 1 178 100"/>
+          <!-- Filled from the left end to this offer's price. -->
+          <path class="dial-live" d="M 22 100 A 78 78 0 0 1 22.6 92.2"/>
+          <path class="dial-redline" d="M 170.7 67 A 78 78 0 0 1 178 100"/>
+          <g class="dial-tick">
+            <line x1="30" y1="100" x2="22" y2="100"/>
+            <line x1="35.3" y1="73.2" x2="27.9" y2="70.1"/>
+            <line x1="50.5" y1="50.5" x2="44.8" y2="44.8"/>
+            <line x1="73.2" y1="35.3" x2="70.1" y2="27.9"/>
+            <line x1="100" y1="30" x2="100" y2="22"/>
+            <line x1="126.8" y1="35.3" x2="129.9" y2="27.9"/>
+            <line x1="149.5" y1="50.5" x2="155.2" y2="44.8"/>
+            <line x1="164.7" y1="73.2" x2="172.1" y2="70.1"/>
+            <line x1="170" y1="100" x2="178" y2="100"/>
+          </g>
+          <text class="dial-scale" x="22" y="118" text-anchor="start">0</text>
+          <text class="dial-scale" x="178" y="118" text-anchor="end">24.99</text>
+          <g class="needle" style="--rest: -180deg">
+            <polygon class="needle-tail" points="100,97 86,100 100,103"/>
+            <polygon class="needle-blade" points="100,95 162,100 100,105"/>
+            <circle class="needle-hub" cx="100" cy="100" r="8"/>
+          </g>
+        </svg>
+
+        <p class="price">$0</p>
+        <p class="price-was">was <s>$24.99</s></p>
+
+        <a class="redeem" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6761606601&amp;code=SPEEDOMETERREDDITPROMO">Get Lifetime Pro free</a>
+      </article>
+
+      <!-- ========================== DISCOUNT ========================== -->
+      <article class="offer" id="offer-deal" data-spent="false">
+        <p class="offer-tag">Discounted</p>
+
+        <svg class="dial" viewBox="0 0 200 128" role="img" aria-label="Price dial: 2 dollars 99 on a scale ending at 24.99">
+          <path class="dial-track" d="M 22 100 A 78 78 0 0 1 178 100"/>
+          <path class="dial-live" d="M 22 100 A 78 78 0 0 1 27.5 71.4"/>
+          <path class="dial-redline" d="M 170.7 67 A 78 78 0 0 1 178 100"/>
+          <g class="dial-tick">
+            <line x1="30" y1="100" x2="22" y2="100"/>
+            <line x1="35.3" y1="73.2" x2="27.9" y2="70.1"/>
+            <line x1="50.5" y1="50.5" x2="44.8" y2="44.8"/>
+            <line x1="73.2" y1="35.3" x2="70.1" y2="27.9"/>
+            <line x1="100" y1="30" x2="100" y2="22"/>
+            <line x1="126.8" y1="35.3" x2="129.9" y2="27.9"/>
+            <line x1="149.5" y1="50.5" x2="155.2" y2="44.8"/>
+            <line x1="164.7" y1="73.2" x2="172.1" y2="70.1"/>
+            <line x1="170" y1="100" x2="178" y2="100"/>
+          </g>
+          <text class="dial-scale" x="22" y="118" text-anchor="start">0</text>
+          <text class="dial-scale" x="178" y="118" text-anchor="end">24.99</text>
+          <g class="needle" style="--rest: -158.5deg">
+            <polygon class="needle-tail" points="100,97 86,100 100,103"/>
+            <polygon class="needle-blade" points="100,95 162,100 100,105"/>
+            <circle class="needle-hub" cx="100" cy="100" r="8"/>
+          </g>
+        </svg>
+
+        <p class="price">$2.99</p>
+        <p class="price-was">was <s>$24.99</s></p>
+
+        <a class="redeem" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6761606601&amp;code=REDDITPROMO">Get Lifetime Pro for $2.99</a>
+      </article>
+    </section>
+
+    <section class="block">
+      <h2>What Lifetime Pro unlocks</h2>
+      <div class="unlocks-body">
+        <div class="unlocks-shot">
+          <img src="../web/main.webp" width="720" height="1565" loading="lazy" alt="Speedometer Lite showing current speed, peak G-force and trip controls">
+        </div>
+        <ul class="unlocks-list">
+          <li><b>Real-time speed limits</b><span>The posted limit for your road, detected as you drive.</span></li>
+          <li><b>Picture in Picture mode</b><span>Keep your live speed floating over any app.</span></li>
+          <li><b>All custom gauges &amp; themes</b><span>A full design for every drive.</span></li>
+          <li><b>Unlimited trip history</b><span>Keep every trip you've ever taken.</span></li>
+          <li><b>Auto-start &amp; auto-stop</b><span>Hands-free trip recording.</span></li>
+          <li><b>Every new Pro feature</b><span>Anything we add later is yours automatically, at no extra cost.</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>How to redeem</h2>
+      <ol class="steps">
+        <li>Tap either <strong>Get Lifetime Pro</strong> button above. The link carries the code, so the App Store opens straight to the offer.</li>
+        <li>Confirm with Face ID, Touch ID, or your Apple Account password.</li>
+        <li><strong>Download and open</strong> Speedometer Lite. If Pro isn't unlocked yet, go to Settings and tap <strong>Restore Purchases</strong>.</li>
+      </ol>
+      <p class="aside">Each button carries its own offer code, so there is nothing to type in and nothing to paste. On a computer, open <strong>speedometerlite.app/pro</strong> on your iPhone instead.</p>
+    </section>
+
+    <section class="block">
+      <h2>Offer terms</h2>
+      <ul class="terms">
+        <li><strong>One-time purchase.</strong> Lifetime Pro is not a subscription. Nothing auto-renews and there is nothing to cancel.</li>
+        <li><strong>Prices.</strong> Lifetime Pro is normally $24.99. The free code costs nothing; the discounted code is $2.99. US pricing — the App Store shows your local price.</li>
+        <li><strong>Availability.</strong> Both codes expire at 12:00&nbsp;a.m. Pacific on 30 September 2026 — 29 September is the last full day to redeem — or earlier if they run out: 2,000 free and 5,000 discounted.</li>
+        <li><strong>Eligibility.</strong> Only for customers who have not purchased Lifetime Pro before, and one code per Apple Account. If you already own Lifetime Pro, the codes won't redeem — your purchase is already permanent.</li>
+        <li>Available in 175 countries and regions. If redemption fails, your App Store country isn't included in these offers.</li>
+        <li>Requires an Apple Account and an iPhone running iOS 14 or later. Payment, where applicable, is charged to your Apple Account and handled entirely by the App Store.</li>
+        <li>See the <a href="../terms.html">Terms of Use</a> and <a href="../privacy.html">Privacy Policy</a>.</li>
+      </ul>
+    </section>
+  </main>
+
+  <footer class="site-foot">
+    <p><a href="../index.html">Speedometer Lite</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
+    <p style="margin-top: 0.6rem;">&copy; 2026 Speedometer Lite</p>
+  </footer>
+
+  <script>
+    // ------------------------------------------------------------------
+    // Flip either of these to true when that code is exhausted or expired.
+    // The card drains to grey, its needle pins at the redline, and its button
+    // goes dead — so an old Reddit thread shows a spent offer instead of
+    // sending someone to an App Store error.
+    // ------------------------------------------------------------------
+    var FREE_SPENT = false;
+    var DEAL_SPENT = false;
+
+    (function () {
+      var mark = function (id, spent, label) {
+        if (!spent) return;
+        var card = document.getElementById(id);
+        var button = card.querySelector('.redeem');
+        card.dataset.spent = 'true';
+        button.textContent = label;
+        button.removeAttribute('href');
+        button.setAttribute('aria-disabled', 'true');
+      };
+
+      mark('offer-free', FREE_SPENT, 'All claimed');
+      mark('offer-deal', DEAL_SPENT, 'All claimed');
+
+    })();
+  </script>
+</body>
+</html>
