@@ -436,56 +436,49 @@
       to { transform: rotate(var(--rest)); }
     }
 
-    /* The two prices are deliberately close in size. The old price carries the
-       story now that the saving is the whole pitch, so it is set as a figure
-       rather than a footnote — but the price actually being charged still ends
-       up marginally larger, because that is the number that has to be read and
-       acted on. To invert them completely, swap the two clamps below. */
-    .price {
-      font-family: var(--readout);
-      font-weight: 700;
-      font-size: clamp(1.95rem, 7.2vw, 2.5rem);
-      letter-spacing: 0;
-      line-height: 1;
-      text-align: center;
-      font-variant-numeric: tabular-nums;
-      margin-top: -0.4rem;
-    }
-
-    /* Flex on the baseline so the small "was" label sits level with the foot of
-       the big struck figure instead of floating at its cap height. */
-    .price-was {
+    /* The drop read as a movement, left to right — the same direction the dial
+       above it sweeps. One baseline through both figures so the eye travels
+       from the old price to the new one, rather than the two stacking as
+       unrelated lines. The price being charged takes the card's key colour and
+       the weight; the old one is struck in the redline magenta and steps back. */
+    .price-move {
       display: flex;
       align-items: baseline;
       justify-content: center;
-      gap: 0.45rem;
+      gap: 0.55rem;
       font-family: var(--readout);
-      font-size: 0.66rem;
       font-weight: 700;
-      letter-spacing: 0.18em;
-      text-transform: uppercase;
-      color: var(--ink-45);
-      margin-top: 0.55rem;
-      margin-bottom: 1.75rem;
+      font-variant-numeric: tabular-nums;
+      margin: -0.2rem 0 1rem;
     }
 
-    .price-was s {
-      font-size: clamp(1.6rem, 6vw, 2.05rem);
-      font-weight: 700;
-      letter-spacing: 0;
-      text-transform: none;
-      color: var(--ink-70);
-      font-variant-numeric: tabular-nums;
+    .price-move s {
+      font-size: clamp(1.15rem, 4.6vw, 1.4rem);
+      color: var(--ink-45);
       text-decoration-color: var(--magenta);
       text-decoration-thickness: 2px;
+    }
+
+    .price-move i {
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--ink-28);
+      /* Nudged off the baseline: an arrow sits optically low against figures. */
+      transform: translateY(-0.15em);
+    }
+
+    .price-move em {
+      font-style: normal;
+      font-size: clamp(2.3rem, 9vw, 2.95rem);
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--key);
     }
 
     /* With the free offer closed this is the only saving left on the page, so
        the drop stops being a footnote under the price and gets stated in
        figures — dollars first, because $22 off lands harder than a percentage.
-       The dial above says the same thing spatially. Negative top margin eats
-       into .price-was's gap rather than changing it, so the free card, which
-       has no pill, keeps its original spacing. */
+       The dial above says the same thing spatially. */
     .price-save {
       align-self: center;
       font-family: var(--readout);
@@ -498,7 +491,7 @@
       border: 1px solid var(--key);
       border-radius: 999px;
       padding: 0.32rem 0.75rem;
-      margin: -1.15rem 0 0.6rem;
+      margin: 0 0 0.75rem;
     }
 
     /* ------------------------------------------------------------- action */
@@ -525,10 +518,10 @@
     /* Spent offer: colour drains, needle pins at the redline, code is gone. */
     .offer[data-spent='true'] { --key: var(--ink-28); }
     .offer[data-spent='true'] .needle { animation: none; transform: rotate(0deg); }
-    .offer[data-spent='true'] .price { color: var(--ink-28); text-decoration: line-through; text-decoration-color: var(--magenta); }
-    /* .price-was s sets its own colour, so it needs draining explicitly or it
-       stays bright while the rest of the card goes cold. */
-    .offer[data-spent='true'] .price-was s { color: var(--ink-28); }
+    /* Both figures set their own colour, so both need draining explicitly or
+       they stay bright while the rest of the card goes cold. */
+    .offer[data-spent='true'] .price-move em,
+    .offer[data-spent='true'] .price-move s { color: var(--ink-28); }
     .offer[data-spent='true'] .redeem { background: transparent; color: var(--ink-45); border: 1px solid var(--hairline); box-shadow: none; pointer-events: none; }
 
     /* A closed card that routes somewhere is not a dead end, so it keeps its
@@ -835,8 +828,7 @@
           </g>
         </svg>
 
-        <p class="price">$0</p>
-        <p class="price-was">was <s>$24.99</s></p>
+        <p class="price-move"><s>$24.99</s> <i aria-hidden="true">&rarr;</i> <em>$0</em></p>
 
         <a class="redeem" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6761606601&amp;code=SPEEDOMETERREDDITPROMO">Get Lifetime Pro free</a>
       </article>
@@ -869,8 +861,7 @@
           </g>
         </svg>
 
-        <p class="price">$2.99</p>
-        <p class="price-was">was <s>$24.99</s></p>
+        <p class="price-move"><s>$24.99</s> <i aria-hidden="true">&rarr;</i> <em>$2.99</em></p>
         <p class="price-save">Save $22 &middot; 88% off</p>
 
         <a class="redeem" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6761606601&amp;code=REDDITPROMO">Get Lifetime Pro for $2.99</a>
