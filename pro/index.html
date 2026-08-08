@@ -159,12 +159,11 @@
     }
 
     /* -------------------------------------------------------------- limits */
-    /* Both offers share one deadline, so the scarcity is stated once, above
-       the cards, rather than twice below them. No code count: the exact figure
-       reads as plenty and dates the page the moment the free pool empties —
-       the precise limits stay in the terms. Magenta because on this page
-       magenta is the redline, the colour that means "this far and no
-       further". */
+    /* Carries the whole story, above the card, because most arrivals come from
+       a Reddit thread promising a free code and need three things before they
+       reach a price: there was a free run, it is over, and something is still
+       open. Magenta because on this page magenta is the redline, the colour
+       that means "this far and no further". */
     .limits {
       border: 1px solid rgba(192, 38, 211, 0.35);
       background: linear-gradient(180deg, rgba(192, 38, 211, 0.10), rgba(192, 38, 211, 0.03));
@@ -182,6 +181,17 @@
       text-indent: 0.22em;
       text-transform: uppercase;
       color: var(--magenta);
+    }
+
+    /* The thing a visitor from the Reddit thread most needs to read, at the
+       size that admits it: there was a free run, it is over, and here is the
+       number that proves it was real. Set brighter and larger than the note
+       below it, which is only the small print of what is still open. */
+    .limits-lede {
+      margin: 0.75rem auto 0;
+      max-width: 30rem;
+      font-size: 1rem;
+      color: var(--ink);
     }
 
     .limits-note {
@@ -359,11 +369,9 @@
       letter-spacing: 0.2em;
       text-indent: 0.2em;
       text-transform: uppercase;
-      color: var(--magenta);
-      margin-bottom: 0.2rem;
+      color: var(--cyan);
+      margin-bottom: 0;
     }
-
-    .offer-past span { font-size: 0.86rem; color: var(--ink-70); }
 
     .offer-tag {
       font-family: var(--readout);
@@ -650,13 +658,14 @@
     <header class="masthead">
       <p class="eyebrow">Reddit offer</p>
       <h1>Unlock <em>Lifetime Pro</em></h1>
-      <p>Every Pro feature, yours permanently. One purchase — not a subscription, and nothing renews.</p>
+      <p>The free giveaway is over &mdash; more than 1,400 people claimed Lifetime Pro in two days and those codes are gone. The discounted code is still open: every Pro feature, permanently, for $2.99.</p>
     </header>
 
     <aside class="limits">
-      <p class="limits-tag">Limited run</p>
+      <p class="limits-tag">Free run ended</p>
+      <p class="limits-lede">More than 1,400 people claimed Lifetime&nbsp;Pro free in two days. Every free code is gone &mdash; if you tapped one and the App&nbsp;Store said it wasn&rsquo;t valid, that is why, not your iPhone.</p>
       <div class="limits-grid">
-        <div><b>Limited codes</b><span>First come, first served</span></div>
+        <div><b>Still open</b><span>The discounted code</span></div>
         <div><b class="is-data">29 Sep 2026</b><span>Last day to redeem</span></div>
       </div>
       <p class="limits-note">The discounted code expires at 12:00 a.m. Pacific on 30 September 2026, so 29 September is the last full day &mdash; or earlier if the codes run out.</p>
@@ -704,12 +713,11 @@
 
       <!-- ========================== DISCOUNT ========================== -->
       <article class="offer" id="offer-deal" data-spent="false">
-        <!-- Unhidden only when the free pool has closed: the miss and the offer
-             that answers it belong on one card, in one eyeline, with no click
-             between them. -->
+        <!-- Unhidden only when the free pool has closed. The panel above tells
+             the story; this is the one-line reminder for anyone who scrolled
+             straight past it to the price. -->
         <div class="offer-past" id="offer-past" hidden>
-          <b>Free run ended</b>
-          <span>More than 1,400 claimed in two days</span>
+          <b>The one that is still open</b>
         </div>
 
         <p class="offer-tag">Discounted</p>
