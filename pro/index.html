@@ -556,8 +556,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 0.7rem;
-      padding: 1.3rem 1.1rem;
+      gap: 0.45rem;
+      padding: 1.2rem 1rem;
       text-align: center;
       /* Denser through the middle than the first pass: the type below is set
          bold and near-white, and it needs a solid ground to sit on rather than
@@ -575,7 +575,7 @@
     .offer-closed b {
       display: inline-block;
       font-family: var(--readout);
-      font-size: 0.68rem;
+      font-size: 0.66rem;
       font-weight: 700;
       letter-spacing: 0.18em;
       text-indent: 0.18em;
@@ -583,21 +583,45 @@
       color: var(--magenta);
       border: 1px solid var(--magenta);
       border-radius: 999px;
-      padding: 0.3rem 0.75rem;
+      padding: 0.28rem 0.7rem;
     }
 
-    /* The count is the message, so it is set at headline weight in full ink
-       rather than as a caption under a label. */
+    /* The count set at the same scale the price gets on the other card, in the
+       readout face: this card's number is the count, the way that card's number
+       is the price. Tabular figures so it sits like an instrument reading. */
     .offer-closed strong {
-      font-size: clamp(1.3rem, 5.6vw, 1.55rem);
+      font-family: var(--readout);
+      font-size: clamp(2.5rem, 11.5vw, 3.2rem);
       font-weight: 700;
-      line-height: 1.15;
-      letter-spacing: -0.01em;
+      line-height: 0.95;
+      letter-spacing: -0.02em;
+      font-variant-numeric: tabular-nums;
       color: var(--ink);
     }
 
+    .offer-closed span { font-size: 0.82rem; color: var(--ink-70); }
+
+    /* The rate, not the total, is what makes someone hurry — and on a
+       speedometer app rate is the native unit. Ruled off above so it reads as a
+       derived reading rather than another line of copy. */
+    .offer-closed em {
+      font-style: normal;
+      font-family: var(--readout);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-indent: 0.15em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      border-top: 1px solid rgba(192, 38, 211, 0.4);
+      padding-top: 0.65rem;
+      margin-top: 0.1rem;
+    }
+
     .offer-closed b,
-    .offer-closed strong { text-shadow: 0 1px 12px rgba(2, 6, 23, 0.95); }
+    .offer-closed strong,
+    .offer-closed span,
+    .offer-closed em { text-shadow: 0 1px 12px rgba(2, 6, 23, 0.95); }
 
     /* -------------------------------------------------------------- prose */
     .block { margin-bottom: 3rem; }
@@ -774,7 +798,12 @@
              so a screen reader meets the state before the price it replaces. -->
         <div class="offer-closed">
           <b>All claimed</b>
-          <strong>1,400+ got here first</strong>
+          <strong>1,400+</strong>
+          <span>claimed in two days</span>
+          <!-- 1,400 over 48 hours is one every 2.06 minutes. Rounded down to
+               two, and the real window was shorter than two days, so the rate
+               is understated in both directions. -->
+          <em>About one every two minutes</em>
         </div>
         <!-- Shown by CSS the moment the card is marked spent; first in the card
              so a screen reader meets the state before the price it replaces. -->
