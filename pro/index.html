@@ -159,11 +159,10 @@
     }
 
     /* -------------------------------------------------------------- limits */
-    /* Carries the whole story, above the card, because most arrivals come from
-       a Reddit thread promising a free code and need three things before they
-       reach a price: there was a free run, it is over, and something is still
-       open. Magenta because on this page magenta is the redline, the colour
-       that means "this far and no further". */
+    /* The deadline, once, above the selector — the plan switcher states which
+       offer is open, so this panel is only the clock. Magenta because on this
+       page magenta is the redline, the colour that means "this far and no
+       further". */
     .limits {
       border: 1px solid rgba(192, 38, 211, 0.35);
       background: linear-gradient(180deg, rgba(192, 38, 211, 0.10), rgba(192, 38, 211, 0.03));
@@ -181,17 +180,6 @@
       text-indent: 0.22em;
       text-transform: uppercase;
       color: var(--magenta);
-    }
-
-    /* The thing a visitor from the Reddit thread most needs to read, at the
-       size that admits it: there was a free run, it is over, and here is the
-       number that proves it was real. Set brighter and larger than the note
-       below it, which is only the small print of what is still open. */
-    .limits-lede {
-      margin: 0.75rem auto 0;
-      max-width: 30rem;
-      font-size: 1rem;
-      color: var(--ink);
     }
 
     .limits-note {
@@ -350,28 +338,76 @@
 
     .offer--free { --key: var(--emerald); }
 
-    /* The free run, stated as history at the head of the card that replaced it.
-       Magenta above the rule for the half that has closed, the card's own cyan
-       below it for the half still open — one card carrying the whole arc, so
-       nobody has to click to discover there is still an offer. */
-    .offer-past {
-      border-bottom: 1px solid var(--hairline);
-      padding-bottom: 0.85rem;
-      margin-bottom: 1.05rem;
-      text-align: center;
+    /* ------------------------------------------------------------- plans */
+    /* A two-position mode selector, not a pill toggle: each side states a value
+       in the readout face with its status beneath, and the live one lights an
+       underline in its own key colour — the same coloured hairline that sits on
+       top of each card. Both offers stay legible as labels even though only one
+       card renders, so nobody has to go looking to find out a discount exists.
+       Real radios underneath, so it is a keyboard control and a screen reader
+       hears a group of two choices. */
+    .plans {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.35rem;
+      max-width: 22rem;
+      margin: 0 auto 1.6rem;
+      padding: 0.35rem;
+      border: 1px solid var(--hairline);
+      border-radius: 16px;
+      background: rgba(15, 23, 42, 0.55);
     }
 
-    .offer-past b {
+    .plan-input {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .plan {
+      --key: var(--emerald);
+      display: block;
+      padding: 0.55rem 0.4rem 0.5rem;
+      border-radius: 12px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: inset 0 -2px 0 transparent;
+      transition: background 0.18s, box-shadow 0.18s;
+    }
+
+    #plan-deal + .plan { --key: var(--cyan); }
+
+    .plan b {
       display: block;
       font-family: var(--readout);
-      font-size: 0.64rem;
+      font-size: 1rem;
       font-weight: 700;
-      letter-spacing: 0.2em;
-      text-indent: 0.2em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 0;
+      color: var(--ink-62);
+      transition: color 0.18s;
     }
+
+    .plan span {
+      font-family: var(--readout);
+      font-size: 0.6rem;
+      letter-spacing: 0.14em;
+      text-indent: 0.14em;
+      text-transform: uppercase;
+      color: var(--ink-45);
+    }
+
+    .plan-input:checked + .plan {
+      background: rgba(250, 250, 250, 0.06);
+      box-shadow: inset 0 -2px 0 var(--key);
+    }
+
+    .plan-input:checked + .plan b { color: var(--key); }
+    .plan-input:focus-visible + .plan { outline: 2px solid var(--cyan); outline-offset: 2px; }
+
+    /* One card at a time. ID specificity so these beat .offer's display: flex. */
+    .offers[data-plan='free'] #offer-deal,
+    .offers[data-plan='deal'] #offer-free { display: none; }
 
     .offer-tag {
       font-family: var(--readout);
@@ -510,6 +546,44 @@
        stays bright while the rest of the card goes cold. */
     .offer[data-spent='true'] .price-was s { color: var(--ink-28); }
     .offer[data-spent='true'] .redeem { background: transparent; color: var(--ink-45); border: 1px solid var(--hairline); box-shadow: none; pointer-events: none; }
+
+    /* The closed plate. Sits above the button so the dial and the struck $0
+       stay visible under it — the card still reads as the offer it was, with
+       its status written across the middle. */
+    .offer-closed {
+      display: none;
+      position: absolute;
+      inset: 0 0 5.5rem;
+      z-index: 2;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 0.35rem;
+      padding: 1.3rem 1.2rem;
+      text-align: center;
+      background: linear-gradient(180deg, rgba(2, 6, 23, 0.28), rgba(2, 6, 23, 0.80) 45%, rgba(2, 6, 23, 0.28));
+    }
+
+    .offer[data-spent='true'] .offer-closed { display: flex; }
+
+    /* Magenta: on this page it is the redline, the colour that means "this far
+       and no further". Same job it does on the limits panel. */
+    .offer-closed b {
+      font-family: var(--readout);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-indent: 0.2em;
+      text-transform: uppercase;
+      color: var(--magenta);
+    }
+
+    .offer-closed b,
+    .offer-closed strong,
+    .offer-closed span { text-shadow: 0 1px 10px rgba(2, 6, 23, 0.95), 0 0 3px rgba(2, 6, 23, 0.8); }
+
+    .offer-closed strong { font-size: 1.05rem; font-weight: 700; line-height: 1.3; }
+    .offer-closed span { font-size: 0.78rem; line-height: 1.5; color: var(--ink-70); }
 
     /* -------------------------------------------------------------- prose */
     .block { margin-bottom: 3rem; }
@@ -658,23 +732,37 @@
     <header class="masthead">
       <p class="eyebrow">Reddit offer</p>
       <h1>Unlock <em>Lifetime Pro</em></h1>
-      <p>The free giveaway is over &mdash; more than 1,400 people claimed Lifetime Pro in two days and those codes are gone. The discounted code is still open: every Pro feature, permanently, for $2.99.</p>
+      <p>1,400+ people took the free code in two days. It&rsquo;s gone &mdash; $2.99 is still open.</p>
     </header>
 
     <aside class="limits">
-      <p class="limits-tag">Free run ended</p>
-      <p class="limits-lede">More than 1,400 people claimed Lifetime&nbsp;Pro free in two days. Every free code is gone &mdash; if you tapped one and the App&nbsp;Store said it wasn&rsquo;t valid, that is why, not your iPhone.</p>
+      <p class="limits-tag">Limited run</p>
       <div class="limits-grid">
-        <div><b>Still open</b><span>The discounted code</span></div>
+        <div><b>Limited codes</b><span>First come, first served</span></div>
         <div><b class="is-data">29 Sep 2026</b><span>Last day to redeem</span></div>
       </div>
-      <p class="limits-note">The discounted code expires at 12:00 a.m. Pacific on 30 September 2026, so 29 September is the last full day &mdash; or earlier if the codes run out.</p>
+      <p class="limits-note">The discounted code expires at 12:00 a.m. Pacific on 30 September 2026 &mdash; or earlier if the codes run out.</p>
     </aside>
 
-    <section class="offers" id="offers" aria-label="Available offers">
+    <div class="plans" role="radiogroup" aria-label="Choose an offer">
+      <input class="plan-input" type="radio" name="plan" id="plan-free" checked>
+      <label class="plan" for="plan-free"><b>Free</b><span>All claimed</span></label>
+
+      <input class="plan-input" type="radio" name="plan" id="plan-deal">
+      <label class="plan" for="plan-deal"><b>$2.99</b><span>Still open</span></label>
+    </div>
+
+    <section class="offers" id="offers" data-plan="free" aria-label="Available offers">
 
       <!-- ============================ FREE ============================ -->
       <article class="offer offer--free" id="offer-free" data-spent="false">
+        <!-- Shown by CSS the moment the card is marked spent; first in the card
+             so a screen reader meets the state before the price it replaces. -->
+        <div class="offer-closed">
+          <b>All claimed</b>
+          <strong>1,400+ got here first</strong>
+          <span>Every free code is gone. That&rsquo;s the App&nbsp;Store error &mdash; not your iPhone.</span>
+        </div>
         <!-- Shown by CSS the moment the card is marked spent; first in the card
              so a screen reader meets the state before the price it replaces. -->
 
@@ -713,13 +801,6 @@
 
       <!-- ========================== DISCOUNT ========================== -->
       <article class="offer" id="offer-deal" data-spent="false">
-        <!-- Unhidden only when the free pool has closed. The panel above tells
-             the story; this is the one-line reminder for anyone who scrolled
-             straight past it to the price. -->
-        <div class="offer-past" id="offer-past" hidden>
-          <b>The one that is still open</b>
-        </div>
-
         <p class="offer-tag">Discounted</p>
 
         <svg class="dial" viewBox="0 0 200 128" role="img" aria-label="Price dial: 2 dollars 99 on a scale ending at 24.99">
@@ -805,14 +886,17 @@
   <script>
     // ------------------------------------------------------------------
     // Flip either of these to true when that code is exhausted, expired or
-    // withdrawn. A spent offer leaves the page rather than sitting there
-    // greyed out, so an old Reddit thread lands on what is actually for sale
-    // instead of on an App Store error.
+    // withdrawn. The card keeps its shape and takes an ALL CLAIMED plate; the
+    // selector beside it says the same thing in two words.
     // ------------------------------------------------------------------
     var FREE_SPENT = true;
     var DEAL_SPENT = false;
 
     (function () {
+      var offers = document.getElementById('offers');
+      var freeRadio = document.getElementById('plan-free');
+      var dealRadio = document.getElementById('plan-deal');
+
       var mark = function (id, spent, label) {
         if (!spent) return;
         var card = document.getElementById(id);
@@ -823,24 +907,43 @@
         button.setAttribute('aria-disabled', 'true');
       };
 
-      // "Closed" rather than "all claimed" or "sold out": true whether the pool
-      // ran dry, expired, or was pulled early, so the page never has to assert
-      // a redemption count nobody has verified.
+      // "Closed" rather than "sold out": true whether the pool ran dry, expired
+      // or was pulled early, so the page never asserts a redemption count
+      // nobody has verified.
       mark('offer-free', FREE_SPENT, 'Free offer closed');
       mark('offer-deal', DEAL_SPENT, 'Offer closed');
 
-      // Only meaningful when one offer has closed and the other is genuinely
-      // still open. If both ever close there is nothing left to point anyone
-      // at, and the page keeps its plain two-card layout with both marked.
-      if (!(FREE_SPENT && !DEAL_SPENT)) return;
+      // Switching re-sweeps the needle to the new price. The dial is the page's
+      // own gesture, so the transition between plans is that same gesture
+      // rather than a fade borrowed from somewhere else.
+      var show = function (plan) {
+        offers.dataset.plan = plan;
+        var needle = document
+          .getElementById(plan === 'free' ? 'offer-free' : 'offer-deal')
+          .querySelector('.needle');
+        if (!needle) return;
+        needle.style.animation = 'none';
+        void needle.offsetWidth;
+        needle.style.animation = '';
+      };
 
-      // One card, carrying both halves: the free run as history at its head,
-      // the offer that is still open underneath. Nothing is hidden behind a
-      // tap, so a visitor who came for free sees the alternative without
-      // having to go looking for it.
-      document.getElementById('offer-free').hidden = true;
-      document.getElementById('offers').dataset.single = 'true';
-      document.getElementById('offer-past').hidden = false;
+      freeRadio.addEventListener('change', function () { show('free'); });
+      dealRadio.addEventListener('change', function () { show('deal'); });
+
+      // Only wire the closed card through to the open one while there is an
+      // open one to reach. Its button names the destination, and the plate
+      // above it has already said the free codes are gone.
+      if (FREE_SPENT && !DEAL_SPENT) {
+        var freeBtn = document.querySelector('#offer-free .redeem');
+        freeBtn.textContent = 'See the $2.99 offer';
+        freeBtn.setAttribute('href', '#offer-deal');
+        freeBtn.removeAttribute('aria-disabled');
+        freeBtn.addEventListener('click', function (e) {
+          e.preventDefault();
+          dealRadio.checked = true;
+          show('deal');
+        });
+      }
     })();
   </script>
 </body>
