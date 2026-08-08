@@ -291,21 +291,14 @@
     }
 
     /* ------------------------------------------------------------- offers */
+    /* The selector shows one card at a time, so this is a single centred track,
+       not two columns with one of them empty. min() lets it fall below 19rem on
+       a 320px screen instead of overflowing. */
     .offers {
       display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 1.25rem;
-      margin-bottom: 3.5rem;
-    }
-
-    /* With one offer left, a card stretched over both columns reads as a
-       layout bug. Collapse to a single column at card width and centre it. */
-    .offers[data-single='true'] {
-      /* min() so the track can fall below 19rem on a 320px screen instead of
-         overflowing the page — this rule outranks the mobile breakpoint below
-         on specificity, so it is the one that has to be safe on narrow phones. */
       grid-template-columns: min(19rem, 100%);
       justify-content: center;
+      margin-bottom: 3.5rem;
     }
 
     /* [hidden] is only a user-agent rule, and .offer's display: flex below is an
@@ -761,7 +754,6 @@
         <div class="offer-closed">
           <b>All claimed</b>
           <strong>1,400+ got here first</strong>
-          <span>Every free code is gone. That&rsquo;s the App&nbsp;Store error &mdash; not your iPhone.</span>
         </div>
         <!-- Shown by CSS the moment the card is marked spent; first in the card
              so a screen reader meets the state before the price it replaces. -->
