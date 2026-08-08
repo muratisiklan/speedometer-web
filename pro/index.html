@@ -340,6 +340,31 @@
 
     .offer--free { --key: var(--emerald); }
 
+    /* The free run, stated as history at the head of the card that replaced it.
+       Magenta above the rule for the half that has closed, the card's own cyan
+       below it for the half still open — one card carrying the whole arc, so
+       nobody has to click to discover there is still an offer. */
+    .offer-past {
+      border-bottom: 1px solid var(--hairline);
+      padding-bottom: 0.85rem;
+      margin-bottom: 1.05rem;
+      text-align: center;
+    }
+
+    .offer-past b {
+      display: block;
+      font-family: var(--readout);
+      font-size: 0.64rem;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-indent: 0.2em;
+      text-transform: uppercase;
+      color: var(--magenta);
+      margin-bottom: 0.2rem;
+    }
+
+    .offer-past span { font-size: 0.86rem; color: var(--ink-70); }
+
     .offer-tag {
       font-family: var(--readout);
       font-size: 0.68rem;
@@ -478,78 +503,6 @@
     .offer[data-spent='true'] .price-was s { color: var(--ink-28); }
     .offer[data-spent='true'] .redeem { background: transparent; color: var(--ink-45); border: 1px solid var(--hairline); box-shadow: none; pointer-events: none; }
 
-    /* The closed card is the only card on the page, so it must not look like a
-       corpse: it keeps its emerald and a filled, live button. What makes it
-       honest is the plate below and the button's label — the state is stated,
-       and the button says where it actually goes. */
-    .offer[data-cta='true'] { --key: var(--emerald); }
-    .offer[data-cta='true'] .redeem {
-      background: var(--key);
-      color: var(--void);
-      border: 0;
-      box-shadow: 0 8px 30px -12px var(--key);
-      pointer-events: auto;
-      cursor: pointer;
-    }
-
-    /* The closed plate. Sits above the button so the dial and the struck $0
-       stay visible under it — the card still reads as the offer it was, with
-       its status written across the middle. */
-    .offer-closed {
-      display: none;
-      position: absolute;
-      inset: 0 0 5.5rem;
-      z-index: 2;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 0.4rem;
-      padding: 1.4rem 1.3rem;
-      text-align: center;
-      background: linear-gradient(180deg, rgba(2, 6, 23, 0.30), rgba(2, 6, 23, 0.80) 45%, rgba(2, 6, 23, 0.30));
-    }
-
-    .offer[data-spent='true'] .offer-closed { display: flex; }
-
-    /* Magenta: on this page it is the redline, the colour that means "this far
-       and no further". Same job it does on the limits panel. */
-    .offer-closed b {
-      font-family: var(--readout);
-      font-size: 0.66rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-indent: 0.2em;
-      text-transform: uppercase;
-      color: var(--magenta);
-    }
-
-    .offer-closed b,
-    .offer-closed strong,
-    .offer-closed span { text-shadow: 0 1px 10px rgba(2, 6, 23, 0.95), 0 0 3px rgba(2, 6, 23, 0.8); }
-
-    .offer-closed strong { font-size: 1.1rem; font-weight: 700; line-height: 1.3; }
-    .offer-closed span { font-size: 0.79rem; line-height: 1.5; color: var(--ink-70); }
-
-    /* The surviving offer carries the eye once the other one greys out: its own
-       colour on the border, and a tag saying it is still open. Emphasis only —
-       every claim on the card reads exactly as it did before. */
-    .offer[data-live='true'] { border-color: rgba(34, 211, 238, 0.45); }
-
-    .offer-live {
-      display: none;
-      font-family: var(--readout);
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-indent: 0.18em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      text-align: center;
-      margin-bottom: 0.75rem;
-    }
-
-    .offer[data-live='true'] .offer-live { display: block; }
-
     /* -------------------------------------------------------------- prose */
     .block { margin-bottom: 3rem; }
 
@@ -658,167 +611,12 @@
 
     @media (max-width: 24rem) {
       .nav-links { display: none; }
-      /* iPhone SE width. The sheet loses its outer gutter and tightens up so
-         the buy button still clears the fold without scrolling. */
-      .sheet { padding: 0.75rem; }
-      .sheet-card { padding: 1.3rem 1.1rem 1.1rem; }
-      .sheet-title { font-size: 1.08rem; }
-      .offer-closed { padding: 1.1rem 0.9rem; }
-    }
-
-    /* -------------------------------------------------------------- sheet */
-    /* Fired only by tapping the closed card — never on load. Someone who came
-       for the free code and found it gone has shown intent worth answering;
-       everyone else is left alone. */
-    .sheet {
-      display: none;
-      position: fixed;
-      inset: 0;
-      z-index: 50;
-      /* Flex + margin:auto on the card, not place-items:center. Centring via
-         align-items clips the top of anything taller than the viewport and
-         makes it unreachable — and with body scroll locked behind it, that
-         would strand the buy button on a short screen or in landscape. */
-      overflow-y: auto;
-      -webkit-overflow-scrolling: touch;
-      padding: 1.25rem;
-      background: rgba(2, 6, 23, 0.82);
-      -webkit-backdrop-filter: blur(6px);
-      backdrop-filter: blur(6px);
-    }
-
-    .sheet[data-open='true'] { display: flex; }
-
-    .sheet-card {
-      width: 100%;
-      max-width: 23rem;
-      margin: auto;
-      background: linear-gradient(180deg, var(--panel), rgba(15, 23, 42, 0.96));
-      border: 1px solid rgba(34, 211, 238, 0.35);
-      border-radius: 20px;
-      padding: 1.6rem 1.45rem 1.35rem;
-      text-align: center;
-      animation: sheet-in 0.28s cubic-bezier(0.22, 1, 0.36, 1) both;
-    }
-
-    @keyframes sheet-in {
-      from { opacity: 0; transform: translateY(14px) scale(0.98); }
-      to { opacity: 1; transform: none; }
-    }
-
-    .sheet-tag {
-      font-family: var(--readout);
-      font-size: 0.64rem;
-      font-weight: 700;
-      letter-spacing: 0.2em;
-      text-indent: 0.2em;
-      text-transform: uppercase;
-      color: var(--magenta);
-    }
-
-    .sheet-title { font-size: 1.2rem; line-height: 1.3; margin: 0.4rem 0 0.6rem; }
-    .sheet-card p { font-size: 0.87rem; color: var(--ink-70); margin-bottom: 0.9rem; }
-
-    /* The paid offer as its own card inside the sheet. The page has no
-       discounted card any more, so this is the only place it appears — it gets
-       the tag, the prices and the saving, same as a card on the page would. */
-    .sheet-offer {
-      border: 1px solid rgba(34, 211, 238, 0.40);
-      background: linear-gradient(180deg, rgba(34, 211, 238, 0.09), rgba(34, 211, 238, 0.02));
-      border-radius: 16px;
-      padding: 1.05rem 0.95rem 0.95rem;
-      margin-bottom: 0.85rem;
-    }
-
-    .sheet-offer-tag {
-      font-family: var(--readout);
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.18em;
-      text-indent: 0.18em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      margin-bottom: 0.45rem;
-    }
-
-    .sheet-save {
-      display: inline-block;
-      font-family: var(--readout);
-      font-size: 0.62rem;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-indent: 0.12em;
-      text-transform: uppercase;
-      color: var(--cyan);
-      border: 1px solid var(--cyan);
-      border-radius: 999px;
-      padding: 0.25rem 0.62rem;
-      margin-bottom: 0.9rem;
-    }
-
-    .sheet-fine { font-size: 0.75rem; color: var(--ink-45); margin-bottom: 0; }
-
-    /* Most of this promo's traffic redeems outside the US, where neither figure
-       on the card is the number they will actually see — and because Apple's
-       tiers are rounded local price points rather than conversions, the ratio
-       between them is not guaranteed to survive either. Say so next to the
-       button rather than burying it in the terms. */
-    .sheet-local {
-      font-size: 0.7rem;
-      line-height: 1.45;
-      color: var(--ink-45);
-      margin: 0.7rem 0 0;
-    }
-
-    .sheet-prices {
-      display: flex;
-      align-items: baseline;
-      justify-content: center;
-      gap: 0.55rem;
-      font-family: var(--readout);
-      font-weight: 700;
-      margin-bottom: 0.7rem;
-    }
-
-    .sheet-prices s { font-size: 1.35rem; color: var(--ink-45); text-decoration-color: var(--magenta); text-decoration-thickness: 2px; }
-    .sheet-prices em { font-size: 1.7rem; font-style: normal; color: var(--cyan); }
-    .sheet-prices small { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-45); }
-
-    .sheet-go {
-      display: block;
-      padding: 0.95rem 1rem;
-      border-radius: 14px;
-      background: var(--cyan);
-      color: var(--void);
-      font-family: var(--display);
-      font-weight: 700;
-      font-size: 0.98rem;
-      text-align: center;
-      text-decoration: none;
-      box-shadow: 0 8px 30px -12px var(--cyan);
-    }
-
-    /* min-height, not just padding: 0.7rem left this around 38px, under the
-       44px Apple asks for and the only dismiss control on the sheet. */
-    .sheet-no {
-      display: block;
-      width: 100%;
-      min-height: 44px;
-      margin-top: 0.35rem;
-      padding: 0.7rem;
-      background: none;
-      border: 0;
-      color: var(--ink-45);
-      font-family: var(--display);
-      font-size: 0.85rem;
-      cursor: pointer;
     }
 
     @media (prefers-reduced-motion: reduce) {
       .needle { animation: none; }
       .redeem { transition: none; }
       .redeem:hover { transform: none; }
-      .sheet-card { animation: none; }
     }
   </style>
 </head>
@@ -861,7 +659,7 @@
         <div><b>Limited codes</b><span>First come, first served</span></div>
         <div><b class="is-data">29 Sep 2026</b><span>Last day to redeem</span></div>
       </div>
-      <p class="limits-note">The codes expire at 12:00 a.m. Pacific on 30 September 2026, so 29 September is the last full day. Whichever runs out first ends the offer &mdash; once the codes are gone they are gone.</p>
+      <p class="limits-note">The discounted code expires at 12:00 a.m. Pacific on 30 September 2026, so 29 September is the last full day &mdash; or earlier if the codes run out.</p>
     </aside>
 
     <section class="offers" id="offers" aria-label="Available offers">
@@ -870,14 +668,6 @@
       <article class="offer offer--free" id="offer-free" data-spent="false">
         <!-- Shown by CSS the moment the card is marked spent; first in the card
              so a screen reader meets the state before the price it replaces. -->
-        <div class="offer-closed">
-          <b>All claimed</b>
-          <!-- Deliberately hedged and rounded down. The exact figure is in App
-               Store Connect and in RevenueCat, but "more than" stays true at any
-               real count above it, so this line cannot go stale or overstate. -->
-          <strong>More than 1,400 people got here first</strong>
-          <span>The free codes are gone &mdash; that&rsquo;s the &ldquo;code is not valid&rdquo; message, not your iPhone.</span>
-        </div>
 
         <p class="offer-tag">Free</p>
 
@@ -913,9 +703,16 @@
       </article>
 
       <!-- ========================== DISCOUNT ========================== -->
-      <article class="offer" id="offer-deal" data-spent="false" data-live="false">
+      <article class="offer" id="offer-deal" data-spent="false">
+        <!-- Unhidden only when the free pool has closed: the miss and the offer
+             that answers it belong on one card, in one eyeline, with no click
+             between them. -->
+        <div class="offer-past" id="offer-past" hidden>
+          <b>Free run ended</b>
+          <span>More than 1,400 claimed in two days</span>
+        </div>
+
         <p class="offer-tag">Discounted</p>
-        <p class="offer-live">Still open</p>
 
         <svg class="dial" viewBox="0 0 200 128" role="img" aria-label="Price dial: 2 dollars 99 on a scale ending at 24.99">
           <path class="dial-track" d="M 22 100 A 78 78 0 0 1 178 100"/>
@@ -949,7 +746,7 @@
       </article>
     </section>
 
-    <p class="offers-note">US App Store prices. Prices may slightly differ depending on your country.</p>
+    <p class="offers-note">US App Store prices. Your store sets its own local price points, so both the price and the saving will differ.</p>
 
     <section class="block">
       <h2>What Lifetime Pro unlocks</h2>
@@ -992,29 +789,6 @@
     </section>
   </main>
 
-  <!-- Opened only from the closed free card. Kept out of the offers section so
-       nothing here is announced to a screen reader until it is actually open. -->
-  <div class="sheet" id="sheet" data-open="false" role="dialog" aria-modal="true" aria-labelledby="sheet-title" hidden>
-    <div class="sheet-card">
-      <p class="sheet-tag">Free offer closed</p>
-      <h2 class="sheet-title" id="sheet-title">Sorry &mdash; you just missed it</h2>
-      <p>More than 1,400 lovely people claimed the free codes and they&rsquo;re all gone. If you still want Lifetime Pro, this one is open:</p>
-
-      <div class="sheet-offer">
-        <p class="sheet-offer-tag">Discounted &middot; still open</p>
-        <p class="sheet-prices">
-          <small>was</small> <s>$24.99</s> <em>$2.99</em>
-        </p>
-        <p class="sheet-save">Save $22 &middot; 88% off</p>
-        <a class="sheet-go" id="sheet-go" href="https://apps.apple.com/redeem?ctx=offercodes&amp;id=6761606601&amp;code=REDDITPROMO">Get Lifetime Pro for $2.99</a>
-        <p class="sheet-local">$2.99 and $24.99 are US App&nbsp;Store prices. Prices may slightly differ depending on your country.</p>
-      </div>
-
-      <p class="sheet-fine">Every Pro feature, permanently. Not a subscription &mdash; nothing renews.</p>
-      <button class="sheet-no" type="button" id="sheet-no">No thanks</button>
-    </div>
-  </div>
-
   <footer class="site-foot">
     <p><a href="../index.html">Speedometer Lite</a> · <a href="../privacy.html">Privacy</a> · <a href="../terms.html">Terms</a></p>
     <p style="margin-top: 0.6rem;">&copy; 2026 Speedometer Lite</p>
@@ -1022,10 +796,10 @@
 
   <script>
     // ------------------------------------------------------------------
-    // Flip either of these to true when that code is exhausted or expired.
-    // The card drains to grey, its needle pins at the redline, and its button
-    // goes dead — so an old Reddit thread shows a spent offer instead of
-    // sending someone to an App Store error.
+    // Flip either of these to true when that code is exhausted, expired or
+    // withdrawn. A spent offer leaves the page rather than sitting there
+    // greyed out, so an old Reddit thread lands on what is actually for sale
+    // instead of on an App Store error.
     // ------------------------------------------------------------------
     var FREE_SPENT = true;
     var DEAL_SPENT = false;
@@ -1041,85 +815,24 @@
         button.setAttribute('aria-disabled', 'true');
       };
 
-      // Captured before mark() overwrites it: when the free card ends up with a
-      // route through to the sheet it keeps its original CTA wording, and the
-      // ALL CLAIMED plate directly above carries the state instead.
-      var freeCard = document.getElementById('offer-free');
-      var freeBtn = freeCard.querySelector('.redeem');
-      var freeLabel = freeBtn.textContent;
-
       // "Closed" rather than "all claimed" or "sold out": true whether the pool
       // ran dry, expired, or was pulled early, so the page never has to assert
       // a redemption count nobody has verified.
       mark('offer-free', FREE_SPENT, 'Free offer closed');
       mark('offer-deal', DEAL_SPENT, 'Offer closed');
 
-      // The closed card explains itself in CSS off data-spent. The rest only
-      // makes sense when one offer is down and the other is genuinely still up:
-      // the survivor takes the colour, and the dead card gets a way through to
-      // it. If both ever close there is nothing to offer, so none of this runs
-      // and the sheet stays inert markup.
+      // Only meaningful when one offer has closed and the other is genuinely
+      // still open. If both ever close there is nothing left to point anyone
+      // at, and the page keeps its plain two-card layout with both marked.
       if (!(FREE_SPENT && !DEAL_SPENT)) return;
 
-      var sheet = document.getElementById('sheet');
-      var goBtn = document.getElementById('sheet-go');
-      var noBtn = document.getElementById('sheet-no');
-      var lastFocus = null;
-
-      // One card on the page: the free one people came for, stating plainly
-      // that it is gone. The paid offer is not a second card competing beside
-      // it — it lives in the sheet, one tap away, for whoever still wants Pro.
-      document.getElementById('offer-deal').hidden = true;
+      // One card, carrying both halves: the free run as history at its head,
+      // the offer that is still open underneath. Nothing is hidden behind a
+      // tap, so a visitor who came for free sees the alternative without
+      // having to go looking for it.
+      document.getElementById('offer-free').hidden = true;
       document.getElementById('offers').dataset.single = 'true';
-
-      // mark() left this anchor inert. Give it back its own label, its colour
-      // and a destination. The label only reads honestly because the plate
-      // above it says ALL CLAIMED — the card states it is gone before anyone
-      // taps. href points at the sheet so it stays a real, focusable link even
-      // if the click handler never binds.
-      var openBtn = freeBtn;
-      freeCard.dataset.cta = 'true';
-      openBtn.textContent = freeLabel;
-      openBtn.setAttribute('href', '#sheet');
-      openBtn.removeAttribute('aria-disabled');
-
-      var open = function () {
-        lastFocus = document.activeElement;
-        sheet.hidden = false;
-        sheet.dataset.open = 'true';
-        // Stop the page behind scrolling under the sheet on iOS.
-        document.body.style.overflow = 'hidden';
-        goBtn.focus();
-      };
-
-      var close = function () {
-        sheet.dataset.open = 'false';
-        sheet.hidden = true;
-        document.body.style.overflow = '';
-        if (lastFocus) lastFocus.focus();
-      };
-
-      openBtn.addEventListener('click', function (e) {
-        e.preventDefault();
-        open();
-      });
-      noBtn.addEventListener('click', close);
-
-      // Tapping the backdrop dismisses; taps inside the card must not.
-      sheet.addEventListener('click', function (e) {
-        if (e.target === sheet) close();
-      });
-
-      document.addEventListener('keydown', function (e) {
-        if (sheet.dataset.open !== 'true') return;
-        if (e.key === 'Escape') { close(); return; }
-        // Two focusable controls in the sheet, so the trap is just a cycle
-        // between them — no need to query the DOM for focusables.
-        if (e.key === 'Tab') {
-          e.preventDefault();
-          (document.activeElement === goBtn ? noBtn : goBtn).focus();
-        }
-      });
+      document.getElementById('offer-past').hidden = false;
     })();
   </script>
 </body>
