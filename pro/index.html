@@ -540,6 +540,20 @@
     .offer[data-spent='true'] .price-was s { color: var(--ink-28); }
     .offer[data-spent='true'] .redeem { background: transparent; color: var(--ink-45); border: 1px solid var(--hairline); box-shadow: none; pointer-events: none; }
 
+    /* A closed card that routes somewhere is not a dead end, so it keeps its
+       colour and a live, filled button. Required: data-spent sets
+       pointer-events: none above, and without this the button renders as a
+       button and refuses every click. */
+    .offer[data-cta='true'] { --key: var(--emerald); }
+    .offer[data-cta='true'] .redeem {
+      background: var(--key);
+      color: var(--void);
+      border: 0;
+      box-shadow: 0 8px 30px -12px var(--key);
+      pointer-events: auto;
+      cursor: pointer;
+    }
+
     /* The closed plate. Sits above the button so the dial and the struck $0
        stay visible under it — the card still reads as the offer it was, with
        its status written across the middle. */
@@ -742,7 +756,7 @@
       <label class="plan" for="plan-free"><b>Free</b><span>All claimed</span></label>
 
       <input class="plan-input" type="radio" name="plan" id="plan-deal">
-      <label class="plan" for="plan-deal"><b>$2.99</b><span>Still open</span></label>
+      <label class="plan" for="plan-deal"><b>Discounted</b><span>Still open</span></label>
     </div>
 
     <section class="offers" id="offers" data-plan="free" aria-label="Available offers">
@@ -927,6 +941,10 @@
       // above it has already said the free codes are gone.
       if (FREE_SPENT && !DEAL_SPENT) {
         var freeBtn = document.querySelector('#offer-free .redeem');
+        // data-cta is what actually makes it clickable — data-spent killed
+        // pointer-events, and a button that ignores clicks is worse than a
+        // button that looks dead.
+        document.getElementById('offer-free').dataset.cta = 'true';
         freeBtn.textContent = 'See the $2.99 offer';
         freeBtn.setAttribute('href', '#offer-deal');
         freeBtn.removeAttribute('aria-disabled');
